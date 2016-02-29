@@ -1,0 +1,65 @@
+
+<?php   require_once(FUN_DEFS); ?>
+
+<form action = "<?php echo($_SERVER['PHP_SELF']);?>" method="post"> 
+    
+    <p><label>Book Title*:</label><br/>
+	<input data-validation="length" data-validation-length ="1-60" type="text" name="b_title" size="40" 
+               value="<?php echo($b_title); ?>"  /></p>
+    <p><label>Author Name*:</label><br/>
+	<input data-validation="length" data-validation-length ="1-40" type="text" name="author_name" size="30" 
+               value="<?php echo($author_name); ?>"  /></p>
+    <p><label for ="b_categ" >Category*:</label></p>
+    <p><select name="b_categ" data-validation="required">
+           <option value="">- Select -</option>
+           <?php
+                
+                // Need the database connection:
+                require_once (MYSQL);
+                $b_categ_array = get_b_categ($dbc);
+                foreach($b_categ_array as $categ){
+                    echo '<option ';
+                    if($b_categ == $categ) echo('selected = "selected"');
+                        echo 'value= "' . $categ . '">' . $categ . '</option>';                    
+                    }
+            ?> 
+        </select></p></br>
+        
+	<p><label>Book Description*: (<span id="maxlength">600</span> characters left)</label><br/>
+            <textarea name="b_desc" id = "text-area" cols="100" rows="6" data-validation="required">
+                  <?php echo $b_desc;?></textarea></p>
+        <?php
+            if(basename(htmlspecialchars($_SERVER['PHP_SELF']))== 'update_publishers_book.php'){
+                echo '<p><label>Publisher Name*:</label><br/>
+                        <input data-validation="length" data-validation-length ="1-40" type="text" name="pub_name" size="30" 
+                                value="' . $pub_name .  '"/></p>   
+                                
+                    <p><label>Book Price(in US Dollars)*:</label><br/>
+                        <input data-validation="number" data-validation-allowing="float" type="text" name="b_price"
+                           value="' . $b_price . '"/></p> 
+                    <p><label for ="b_ratings">
+                Book Ratings*:
+                    <input data-validation="required" type = "radio" id = "b_ratings" name ="b_ratings" value =1';
+                        if ($b_ratings == 1){echo ' checked="checked"';} echo '> 1 ';  
+                echo '<input data-validation="required" type = "radio" id = "b_ratings" name ="b_ratings" value =2';
+                        if ($b_ratings == 2){echo ' checked="checked"';}echo '> 2 '; 
+                echo '<input data-validation="required" type ="radio" id = "b_ratings" name = "b_ratings" value=3';
+                        if ($b_ratings == 3){echo ' checked="checked"';}echo '> 3 ';
+                echo '<input data-validation="required" type ="radio" id = "b_ratings" name = "b_ratings" value=4';
+                        if ($b_ratings == 4){echo ' checked="checked"';}echo '> 4 ';
+                echo '<input data-validation="required" type ="radio" id = "b_ratings" name = "b_ratings" value=5';
+                        if ($b_ratings == 5){echo ' checked="checked"';}echo '> 5 ';
+                 echo  '</label></p>
+                    <p><input type="submit" name="submit" value="Update" /></p>
+                                 <input type="hidden" name="b_id" value="' . $b_id . '" />';
+                                 
+            }        
+            if(basename(htmlspecialchars($_SERVER['PHP_SELF']))== 'update_authors_book.php'){
+                echo '<p><input type="submit" name="submit" value="Update" /></p>
+                        <input type="hidden" name="b_id" value="' . $b_id . '" />';
+            }elseif(basename(htmlspecialchars($_SERVER['PHP_SELF']))== 'create_book.php'){
+                echo '<button type="submit"  name="submit" value="submit">Create</button>';
+            }
+        ?>
+	
+</form>

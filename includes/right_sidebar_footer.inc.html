@@ -1,0 +1,65 @@
+<div id="sidebar" class="col-md-3 col-md-3sidebar-offcanvas">
+                    <br>
+                    <div class="list-group" >
+                            <br>
+                                <form  action = "../Azteca/search.php" method="post">
+                             
+                                    <p align = "right">    <input type="text" placeholder="Enter book title..." name="b_title" size="30" maxlength="60"/>
+                                        <button type="submit" class="btn btn-success"> <span class="glyphicon glyphicon-search"></span> </button></p>
+                                                                
+                            
+                                </form><br>
+                        <ul>
+                        <?php
+                            function glyphicon_func($href) {
+                                if (basename($_SERVER['PHP_SELF'])== $href){
+                                    $icon = '<span class="glyphicon glyphicon-hand-left"></span>';
+                                    }else{
+                                        $icon = "";
+                                    }
+                                return $icon;
+                            }
+                                if (isset($_SESSION['user_level'])){
+                                    
+                                    // Add links if the user is above member level
+                                        if ($_SESSION['user_level'] >= 10) {
+                                        
+                                        echo '<a class = "list-group-item list-group-item-info" href="../AztecaMember/shopping_hub.php"><span class="glyphicon glyphicon-info-sign"></span> Shopping Hub' . glyphicon_func('shopping_hub.php') . '</a>                                              
+                                                <ul> 
+                                                    <li><a href="../AztecaMember/order_book.php"> Order Book </a>' . glyphicon_func('order_book.php') . '</li>   
+                                                    <li><a href="../AztecaMember/my_cart.php"> view Cart </a>' . glyphicon_func('my_cart.php') . '</li>                    
+                                                
+                                                <br></ul>';
+                                        }
+                                        if ($_SESSION['user_level'] >= 30) {
+                                        
+                                        echo '<a class = "list-group-item list-group-item-info" href="../AztecaAuthor/author_home.php"><span class="glyphicon glyphicon-info-sign"></span> Author\'s Hub ' . glyphicon_func('author_home.php') . ' </a>
+                                                <ul>
+                                                    <li><a href="../AztecaAuthor/create_book.php"> add new Book </a>' . glyphicon_func('create_book.php') . '</li>  
+                                                    <li><a href="../AztecaAuthor/manage_authors_books.php"> Manage my Books </a>' . glyphicon_func('manage_authors_books.php') . '</li>  
+                                                    <li><a href="../AztecaAuthor/book_list.php">View all Books </a>' . glyphicon_func('book_list.php') . '</li>
+                                                <br></ul>';
+                                        }
+                                        if($_SESSION['user_level'] >= 50){
+                                            echo '<a class = "list-group-item list-group-item-info" href="../AztecaPublisher/publisher_home.php"><span class="glyphicon glyphicon-info-sign"></span> Publisher\'s Hub ' . glyphicon_func('publisher_home.php') . ' </a> 
+                                                    <ul>
+                                                        <li><a href="../AztecaPublisher/manage_publishers_books.php"> Manage/Process Book </a>' . glyphicon_func('manage_publishers_books.php') . '</li>
+                                                        <li><a href="../AztecaPublisher/to_publish_books.php"> Books to Publish </a>' . glyphicon_func('to_publish_books.php') . '</li>  
+                                                        <li><a href="../AztecaAuthor/book_list.php">View all Books </a>' . glyphicon_func('book_list.php') . '</li>
+                                                    <br></ul>';
+                                        }
+                                        if($_SESSION['user_level'] == 100){
+                                            echo '<a class="list-group-item list-group-item-info" href="../AztecaAdmin/admin_home.php"><span class="glyphicon glyphicon-info-sign"></span> Admin\'s Hub ' . glyphicon_func('admin_home.php') . ' </a> 
+                                                    <ul>
+                                                        <li><a href="../AztecaAdmin/manage_users.php"> Manage Users </a>' . glyphicon_func('view_users.php') . '</li>  
+                                                        <li><a href="../AztecaAdmin/manage_all_books.php"> Manage All Books </a>' . glyphicon_func('manage_all_books.php') . '</li>  
+                                                        <li><a href="../AztecaAdmin/manage_orders.php"> Manage Orders</a>' . glyphicon_func('manage_orders.php') . '</li>
+                                                        <li><a href="../AztecaAdmin/add_book_category.php"> Manage Book Categories</a>' . glyphicon_func('add_book_category.php') . '</li>
+                                                    
+                                                    <br></ul>';
+                                        }
+                                }
+                        ?>
+                        </ul>
+                     </div>
+                </div>

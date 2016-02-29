@@ -1,0 +1,90 @@
+<!-- Start of Footer --> 
+                </div><!--col-md-10-->
+                    <?php include('right_sidebar_footer.inc.html');?>              
+                
+            </div><!--row-->
+            <?php
+                if(basename($_SERVER['PHP_SELF'])== 'index.php'){
+                    include('sub_footer_home.html');
+                }
+            ?>
+        
+            <footer class="footer">
+                <p> ©Liza @ AztecA Book Corp 2015</p>
+            </footer>
+            
+        </div><!-- container -->  
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.1/jquery.form-validator.min.js"></script>
+		<script src="http://code.highcharts.com/highcharts.js"></script>
+		
+		<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+		<script> 
+			$.validate({
+				modules : 'security'
+			  }); 
+
+			$('#text-area').restrictLength($('#maxlength'));
+			$(function () {
+			var dataset_X = <?php echo $dataset_X; ?>;
+				$('#container').highcharts({
+				chart: {
+					type: 'column'
+				},
+				title: {
+					text: 'Books Sold'
+				},
+				xAxis: {
+				categories: [
+					'Jan',
+					'Feb',
+					'Mar',
+					'Apr',
+					'May',
+					'Jun',
+					'Jul',
+					'Aug',
+					'Sep',
+					'Oct',
+					'Nov',
+					'Dec'
+				],
+				crosshair: true
+			},
+			yAxis: {
+				min: 0,
+				title: {
+					text: 'Nos'
+				}
+			},
+			tooltip: {
+				headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+				pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+					'<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+				footerFormat: '</table>',
+				shared: true,
+				useHTML: true
+			},
+			plotOptions: {
+				column: {
+					pointPadding: 0.2,
+					borderWidth: 0
+				}
+			},
+			series: [dataset_X]
+
+			
+		});
+});
+		 </script>
+		  </body>
+    </body>
+</html>

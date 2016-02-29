@@ -1,0 +1,46 @@
+<?php 
+// This page begins the HTML header for the site.
+
+// Start output buffering:
+ob_start();
+
+// Initialize a session:
+session_start();
+
+// Check for a $page_title value:
+if (!isset($page_title)) {
+	$page_title = 'Azteca Book Corp';
+}
+
+require_once (FUN_DEFS);
+?>
+
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<meta content="" name="description">
+<meta content="" name="author">
+<title><?php echo $page_title; ?></title>
+
+<style type="text/css" media="screen">@import "../includes/css/layout.css";</style>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+<!-- Optional themes -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"/>
+
+<style type="text/css" media="screen"> @import "../includes/css/nav_justified.css";</style>
+<style type="text/css" media="screen">@import "../includes/css/carousel.css";</style>
+
+</head>
+<body>
+    <?php include('nav_bar_main.inc.html'); ?>
+    
+    <div class="container">
+        <div class="row">
+          <div class="col-md-9">
+              
+            
+        <!-- End of Header -->

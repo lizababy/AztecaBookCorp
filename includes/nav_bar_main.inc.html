@@ -1,0 +1,84 @@
+    <div class="container">        
+        <div class="masthead">
+            <div class="row">                
+                <div class="col-md-8"><h1 class="text-muted"><img src = "../includes/images/logo_s.png"> AztecA Book Corp</h1></div>
+                <div class="col-md-4">
+                    <?php
+                    require('cookie_function.inc.php');
+                    if(!empty($_SESSION)){
+                        echo (del_sess_if_exp());
+                    }elseif(isset($_COOKIE['last_loggedin']) && isset($_COOKIE['last_ip'])) {
+                        echo(last_login_info());
+                    }else{
+                        if(basename($_SERVER['PHP_SELF'])=="index.php"){
+                            echo (page_counter("count1",'/AztecaBookCorp/Azteca/index.php'));
+                        }
+                        if(basename($_SERVER['PHP_SELF'])=="best_seller_list.php"){
+                            echo (page_counter("count2",'/AztecaBookCorp/Azteca/best_seller_list.php'));
+                        }
+                    }
+                    ?>
+                </div>
+                
+            </div>
+            
+            <nav> 
+                
+                 <ul class="nav nav-justified">
+                     
+                    <li class="active">
+                        <a href="../Azteca/index.php"><span class="glyphicon glyphicon-home"></span> Home</a>
+                    </li>
+                    <li>
+                        <a href="../Azteca/best_seller_list.php"><span class="glyphicon glyphicon-star"></span> Best Seller Books <span class="glyphicon glyphicon-th-list"></span></a>
+                    </li>
+                    <li class="dropdown">                        
+                        <a class="dropdown-toggle"                             
+                            role="button" data-toggle="dropdown" href=#>
+                            <span class="glyphicon glyphicon-plus"></span> Help
+                            <span class="caret"></span>                          
+                            
+                        </a>                        
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="../Azteca/contact.php">Contact</a>
+                            </li>  
+                            <li>
+                                <a href="../Azteca/policy.php">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="../Azteca/faq.php">FAQ</a>
+                            </li>                  
+                        </ul>
+                    </li> 
+                     <?php
+                        if (!isset($_SESSION['user_level'])|| basename(htmlspecialchars($_SERVER['PHP_SELF']))== 'logout.php')
+                        {
+                            echo '<li><a href="../Azteca/register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>';
+                            
+                            echo '<li><a href="../AztecaMember/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>';
+                        }else{
+                            echo '<li class="dropdown">                        
+                            <a class="dropdown-toggle"                             
+                            role="button" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-user"></span> My Account
+                            <span class="caret"></span> </a>                        
+                            <ul class="dropdown-menu" role="menu"><li>';
+                                echo '<li><a href="../AztecaMember/user_account.php?id=' .$_SESSION['user_id'] . '">View Profile</a></li>
+                                      <li><a href="../AztecaMember/edit_profile.php?id=' . $_SESSION['user_id'] . '">Edit Profile</a></li>';    
+                                if($_SESSION['user_level']==100){
+                                    echo '<li><a href="../AztecaMember/change_role.php?id=' . $_SESSION['user_id'] . '">Change Role</a></li>'; 
+                                }else{
+                                    echo '<li class = "disabled"><a href="../AztecaMember/change_role.php?id=' . $_SESSION['user_id'] . '">Change Role</a></li>'; 
+                                }
+                                echo '<li><a href="../AztecaMember/change_password.php">Change Password</a></li>                            
+                                      <li><a href="../AztecaMember/delete_user.php?id=' . $_SESSION['user_id'] . '">Unsubscribe</a></li>
+                            </ul></li>';
+                            
+                             echo '<li><a href="../AztecaMember/logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>';
+                        } 
+                    ?>                    
+                </ul> 
+            </nav>
+        </div> 
+    </div>
